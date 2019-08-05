@@ -6,7 +6,7 @@ class Hangman extends Component {
     constructor(props){
         super(props);
         this.state = { nWrong:0, guessed: new Set(), answer:"apple"};
-        //this.handleGuess = this.handleGuess.bind(this);
+        this.handleGuess = this.handleGuess.bind(this);
     }
 
     /**
@@ -20,13 +20,26 @@ class Hangman extends Component {
     }
 
     /**
+     * HandleGuess: handle a guessed letter:
+     * - add to guessed letters
+     * - if not in answer, increase number-wrong guesses
+     */
+    handleGuess(e){
+        let ltr = e.target.value;
+        this.setState(st => ({
+            guessed: st.guessed.add(ltr),
+            nWrong: st.nWrong + (st.answer.includes(ltr) ? 0 : 1)
+        }));
+    }
+
+    /**
      * generateButtons : return an array of letter rendered has buttons
      */
     generateButtons() {
         return "abcdefghijklmnopqrstuvwxyz".split("").map(ltr => (
             <button
                 value={ltr}
-                onClick={()=>{}}
+                onClick={this.handleGuess}
                 disabled={this.state.guessed.has(ltr)}
             >
                 {ltr}
