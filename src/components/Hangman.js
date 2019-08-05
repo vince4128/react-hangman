@@ -19,12 +19,27 @@ class Hangman extends Component {
             .map(ltr => (this.state.guessed.has(ltr) ? ltr : "_"))
     }
 
+    /**
+     * generateButtons : return an array of letter rendered has buttons
+     */
+    generateButtons() {
+        return "abcdefghijklmnopqrstuvwxyz".split("").map(ltr => (
+            <button
+                value={ltr}
+                onClick={()=>{}}
+                disabled={this.state.guessed.has(ltr)}
+            >
+                {ltr}
+            </button>
+        ))
+    }
+
     render() {
         return (
             <div className='Hangman'>
                 <h1>Hangman</h1>                
                 <p className='Hangman-word'>{this.guessedWord()}</p>
-                <p>Letter button</p>
+                <p className='Hangman-btns'>{this.generateButtons()}</p>
             </div>
         )
     }
